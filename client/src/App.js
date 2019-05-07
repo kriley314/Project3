@@ -1,26 +1,123 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
+import Sidebar from "react-sidebar";
+
+import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sidebarOpen: true
+    };
+    this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
+  }
+
+  onSetSidebarOpen(open) {
+    this.setState({ sidebarOpen: open });
+  }
+  render() {
+    const responseFacebook = (response) => {
+      console.log(response);
+    }
+
+    const responseGoogle = (response) => {
+      console.log(response);
+    }
+
+
+    return (
+      <div className="App">
+        <Sidebar 
+          sidebar={<b>
+            <div
+            style={{padding: 40}}>
+              <br />
+              <FacebookLogin
+                appId=""
+                fields="name,email,picture"
+                callback={responseFacebook}
+              />
+              <br />
+              <br />
+
+              <GoogleLogin
+                clientId=""
+                buttonText="Login with Google"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+              />
+            </div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                My Groups <i class="fas fa-users"></i>
+                </button>
+              <div class="dropdown-menu dropdown-menu-lg-right">
+                <button class="dropdown-item" type="button">Action</button>
+                <button class="dropdown-item" type="button">Another action</button>
+                <button class="dropdown-item" type="button">Something else here</button>
+              </div>
+            </div>
+
+            <br />
+            <br />
+            <hr />
+
+            <div class="btn-group">
+            <button type="button" class="btn btn-dark">
+                Current Group <i class="fas fa-users"></i>
+                </button>
+              <div class="dropdown-menu dropdown-menu-lg-right">
+                <button class="dropdown-item" type="button">Action</button>
+                <button class="dropdown-item" type="button">Another action</button>
+                <button class="dropdown-item" type="button">Something else here</button>
+              </div>
+            </div>
+            <br />
+            <i class="fas fa-user-circle fa-3x" style={{marginRight: 5, marginTop: 10}}></i>
+            <i class="fas fa-user-circle fa-3x" style={{marginRight: 5, marginLeft: 10, marginTop: 5}}></i>
+            <i class="fas fa-user-circle fa-3x" style={{marginLeft: 5, marginTop: 10}}></i>
+            <br />
+            <br />
+            <br />
+              <form>
+                <div class="form-group">
+                <button style={{marginBottom: 10}} type="button" class="btn btn-dark">Chat <i class="far fa-comment-alt" style={{marginLeft: 5}}></i></button>
+                  
+                  <textarea style={{padding: 10}} class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+              </form>
+          </b>}
+          open={this.state.sidebarOpen}
+          onSetOpen={this.onSetSidebarOpen}
+          styles={{ sidebar: { background: "white" } }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          <button onClick={() => this.onSetSidebarOpen(true)}>
+            Open sidebar
+        </button>
+        </Sidebar>
+        <br />
+        <br />
+        <Map google={this.props.google} zoom={14}>
+
+          <Marker onClick={this.onMarkerClick}
+            name={'Current location'} />
+
+          <InfoWindow onClose={this.onInfoWindowClose}>
+
+          </InfoWindow>
+        </Map>
+      </div>
+
+    );
+  }
 }
 
-export default App;
+export default GoogleApiWrapper({
+  apiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+})(App)
+
