@@ -1,12 +1,28 @@
 {
   "name": "Project3",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kriley314/Project3.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kriley314/Project3/issues"
+  },
+  "homepage": "https://github.com/kriley314/Project3#readme",
+  "description": "",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "express": "^4.16.4",
+    "if-env": "^1.0.4",
+    "mongoose": "^5.5.6",
+    "react-router-dom": "^5.0.0"
+  }
 }
