@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
+import logo from './logo.png';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import Sidebar from "react-sidebar";
@@ -33,13 +33,23 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Sidebar 
+        <Sidebar
           sidebar={<b>
+            <div>
+            <img id="logo-image" src={logo} alt="catchup-app-logo" />
+            </div>
+
+            <div className="about-text">
+            <p>The CatchUp! app allows you to
+              create, share and join private location based groups.
+            </p>
+            
+            </div>
             <div
-            style={{padding: 40}}>
+              style={{ padding: 40 }}>
               <br />
               <FacebookLogin
-                appId=""
+                appId="REACT_APP_FACEBOOKLOGIN"
                 fields="name,email,picture"
                 callback={responseFacebook}
               />
@@ -47,59 +57,21 @@ class App extends Component {
               <br />
 
               <GoogleLogin
-                clientId=""
+                clientId="REACT_APP_GOOGLE_LOGIN"
                 buttonText="Login with Google"
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
               />
             </div>
-            <div class="btn-group">
-              <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                My Groups <i class="fas fa-users"></i>
-                </button>
-              <div class="dropdown-menu dropdown-menu-lg-right">
-                <button class="dropdown-item" type="button">Action</button>
-                <button class="dropdown-item" type="button">Another action</button>
-                <button class="dropdown-item" type="button">Something else here</button>
-              </div>
-            </div>
-
-            <br />
-            <br />
-            <hr />
-
-            <div class="btn-group">
-            <button type="button" class="btn btn-dark">
-                Current Group <i class="fas fa-users"></i>
-                </button>
-              <div class="dropdown-menu dropdown-menu-lg-right">
-                <button class="dropdown-item" type="button">Action</button>
-                <button class="dropdown-item" type="button">Another action</button>
-                <button class="dropdown-item" type="button">Something else here</button>
-              </div>
-            </div>
-            <br />
-            <i class="fas fa-user-circle fa-3x" style={{marginRight: 5, marginTop: 10}}></i>
-            <i class="fas fa-user-circle fa-3x" style={{marginRight: 5, marginLeft: 10, marginTop: 5}}></i>
-            <i class="fas fa-user-circle fa-3x" style={{marginLeft: 5, marginTop: 10}}></i>
-            <br />
-            <br />
-            <br />
-              <form>
-                <div class="form-group">
-                <button style={{marginBottom: 10}} type="button" class="btn btn-dark">Chat <i class="far fa-comment-alt" style={{marginLeft: 5}}></i></button>
-                  
-                  <textarea style={{padding: 10}} class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-              </form>
           </b>}
           open={this.state.sidebarOpen}
           onSetOpen={this.onSetSidebarOpen}
           styles={{ sidebar: { background: "white" } }}
         >
           <button onClick={() => this.onSetSidebarOpen(true)}>
-            Open sidebar
+            Menu
         </button>
+
         </Sidebar>
         <br />
         <br />
@@ -118,4 +90,3 @@ class App extends Component {
 export default GoogleApiWrapper({
   apiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
 })(App)
-
