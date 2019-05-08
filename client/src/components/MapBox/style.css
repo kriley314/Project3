@@ -1,0 +1,10 @@
+#map {
+    height: auto;
+}
+
+@media only screen and (max-width: 415px) {
+    #map{
+        width: 140%;
+        left: -38%;
+    }
+}
