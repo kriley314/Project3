@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 // import Chat from "./Chat";
 // import logo from './logo.svg';
 
+// import FacebookLogin from 'react-facebook-login';
+// import GoogleLogin from 'react-google-login';
+// import Sidebar from "react-sidebar";
+//import logo from './logo.svg';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import Sidebar from "react-sidebar";
 import firebase from "./utils/firebase.js";
+import { GoogleApiWrapper } from 'google-maps-react';
 
-
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import MapBox from "./components/MapBox";
 
 import './App.css';
 class App extends Component {
@@ -148,17 +152,14 @@ class App extends Component {
         </Sidebar>
         <br />
         <br />
-        <Map google={this.props.google} zoom={14}>
-
-          <Marker onClick={this.onMarkerClick}
-            name={'Current location'} />
-
-          <InfoWindow onClose={this.onInfoWindowClose}>
-
-          </InfoWindow>
-        </Map>
+        <MapBox
+            gProps = {this.props.google}
+            gZoom = {17}
+            gOnMarkerClick = {this.gOnMarkerClick}
+            gName = {'Current location'}
+            gOnClose = {this.onInfoWindowClose}
+        />
       </div>
-
     );
   }
 }
