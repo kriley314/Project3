@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import Chat from "./Chat";
+// import logo from './logo.svg';
+
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import Sidebar from "react-sidebar";
 
+
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
 import './App.css';
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -32,10 +34,10 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Sidebar 
+        <Sidebar
           sidebar={<b>
             <div
-            style={{padding: 40}}>
+              style={{ padding: 40 }}>
               <br />
               <FacebookLogin
                 appId=""
@@ -55,7 +57,7 @@ class App extends Component {
             <div class="btn-group">
               <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                 My Groups <i class="fas fa-users"></i>
-                </button>
+              </button>
               <div class="dropdown-menu dropdown-menu-lg-right">
                 <button class="dropdown-item" type="button">Action</button>
                 <button class="dropdown-item" type="button">Another action</button>
@@ -68,9 +70,9 @@ class App extends Component {
             <hr />
 
             <div class="btn-group">
-            <button type="button" class="btn btn-dark">
+              <button type="button" class="btn btn-dark">
                 Current Group <i class="fas fa-users"></i>
-                </button>
+              </button>
               <div class="dropdown-menu dropdown-menu-lg-right">
                 <button class="dropdown-item" type="button">Action</button>
                 <button class="dropdown-item" type="button">Another action</button>
@@ -78,19 +80,30 @@ class App extends Component {
               </div>
             </div>
             <br />
-            <i class="fas fa-user-circle fa-3x" style={{marginRight: 5, marginTop: 10}}></i>
-            <i class="fas fa-user-circle fa-3x" style={{marginRight: 5, marginLeft: 10, marginTop: 5}}></i>
-            <i class="fas fa-user-circle fa-3x" style={{marginLeft: 5, marginTop: 10}}></i>
+            <i class="fas fa-user-circle fa-3x" style={{ marginRight: 5, marginTop: 10 }}></i>
+            <i class="fas fa-user-circle fa-3x" style={{ marginRight: 5, marginLeft: 10, marginTop: 5 }}></i>
+            <i class="fas fa-user-circle fa-3x" style={{ marginLeft: 5, marginTop: 10 }}></i>
             <br />
             <br />
             <br />
-              <form>
+            {/* <div className="messages">
+              if (this.state.data) {
+                this.state.messages.map(function (comment) {
+                return (
+                  <div>
+                    {message.author}: {message.message}
+                  </div>
+                )
+              });
+            };
+            </div> */}
+            <form>
                 <div class="form-group">
                 <button style={{marginBottom: 10}} type="button" class="btn btn-dark">Chat <i class="far fa-comment-alt" style={{marginLeft: 5}}></i></button>
                   
                   <textarea style={{padding: 10}} class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
-              </form>
+              </form> 
           </b>}
           open={this.state.sidebarOpen}
           onSetOpen={this.onSetSidebarOpen}
@@ -117,7 +130,10 @@ class App extends Component {
   }
 }
 
+
 export default GoogleApiWrapper({
   apiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
 })(App)
+
+
 
