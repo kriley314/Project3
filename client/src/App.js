@@ -1,27 +1,28 @@
 import React, { Component } from 'react';
-// import Chat from "./Chat";
-// import logo from './logo.svg';
 
-// import FacebookLogin from 'react-facebook-login';
-// import GoogleLogin from 'react-google-login';
-// import Sidebar from "react-sidebar";
-//import logo from './logo.svg';
 import FacebookLogin from 'react-facebook-login';
-import GoogleLogin from 'react-google-login';
 import Sidebar from "react-sidebar";
 import firebase from "./utils/firebase.js";
 import { GoogleApiWrapper } from 'google-maps-react';
-
 import MapBox from "./components/MapBox";
 
 import './App.css';
+
+require("dotenv").config();
+
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       sidebarOpen: true,
+
+      name: "",
+      id: null
+
       chatText: "",
       messagesArray: []
+
     };
     this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
   }
@@ -54,38 +55,44 @@ class App extends Component {
     })
   }
 
+
+  responseFacebook = (response) => {
+    console.log(response);
+    // make a API request to your server to save the user's info to your database
+    // this.setState to save some of the info in your local React state
+  }
+
+  // responseGoogle = (response) => {
+  //   console.log(response);
+  // };
+
   render() {
-    const responseFacebook = (response) => {
-      console.log(response);
-    }
-
-    const responseGoogle = (response) => {
-      console.log(response);
-    }
-
-
     return (
       <div className="App">
         <Sidebar
           sidebar={<b>
+            <div>
+            <img id="logo-image" src={logo} alt="catchup-app-logo" />
+            </div>
+
+            <div className="about-text">
+            <p>The CatchUp! app allows you to
+              create, share and join private location based groups.
+            </p>
+            
+            </div>
             <div
               style={{ padding: 40 }}>
               <br />
               <FacebookLogin
-                appId=""
+                appId={process.env.REACT_APP_FACEBOOKLOGIN}
                 fields="name,email,picture"
-                callback={responseFacebook}
+                callback={this.responseFacebook}
               />
               <br />
               <br />
-
-              <GoogleLogin
-                clientId=""
-                buttonText="Login with Google"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-              />
             </div>
+
             <div class="btn-group">
               <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                 My Groups <i class="fas fa-users"></i>
@@ -141,14 +148,16 @@ class App extends Component {
                 <p>{messageObj.name} said: "{messageObj.message}"</p>
               )}
             </div>
+
           </b>}
           open={this.state.sidebarOpen}
           onSetOpen={this.onSetSidebarOpen}
           styles={{ sidebar: { background: "white" } }}
         >
           <button onClick={() => this.onSetSidebarOpen(true)}>
-            Open sidebar
+            Menu
         </button>
+
         </Sidebar>
         <br />
         <br />
@@ -168,6 +177,4 @@ class App extends Component {
 export default GoogleApiWrapper({
   apiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
 })(App)
-
-
 
