@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import logo from './logo.png';
 import FacebookLogin from 'react-facebook-login';
-import GoogleLogin from 'react-google-login';
 import Sidebar from "react-sidebar";
 import { GoogleApiWrapper } from 'google-maps-react';
-
 import MapBox from "./components/MapBox";
 
 import './App.css';
+require("dotenv").config();
+
+
+
+
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sidebarOpen: true
+      sidebarOpen: true,
+      name: "",
+      id: null
     };
     this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
   }
@@ -21,16 +26,18 @@ class App extends Component {
   onSetSidebarOpen(open) {
     this.setState({ sidebarOpen: open });
   }
+
+  responseFacebook = (response) => {
+    console.log(response);
+    // make a API request to your server to save the user's info to your database
+    // this.setState to save some of the info in your local React state
+  }
+
+  // responseGoogle = (response) => {
+  //   console.log(response);
+  // };
+
   render() {
-    const responseFacebook = (response) => {
-      console.log(response);
-    }
-
-    const responseGoogle = (response) => {
-      console.log(response);
-    }
-
-
     return (
       <div className="App">
         <Sidebar
@@ -49,19 +56,12 @@ class App extends Component {
               style={{ padding: 40 }}>
               <br />
               <FacebookLogin
-                appId="REACT_APP_FACEBOOKLOGIN"
+                appId={process.env.REACT_APP_FACEBOOKLOGIN}
                 fields="name,email,picture"
-                callback={responseFacebook}
+                callback={this.responseFacebook}
               />
               <br />
               <br />
-
-              <GoogleLogin
-                clientId="REACT_APP_GOOGLE_LOGIN"
-                buttonText="Login with Google"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-              />
             </div>
           </b>}
           open={this.state.sidebarOpen}
