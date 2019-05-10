@@ -60,7 +60,8 @@ class App extends Component {
   chatSubmit = event => {
     event.preventDefault();
     firebase.database().ref("/chat").push({
-      name: "brendan",
+      name: "Brendan",
+      grpName: "tmpGroupName",
       message: this.state.chatText,
       time: firebase.database.ServerValue.TIMESTAMP
     })
@@ -177,7 +178,8 @@ class App extends Component {
             gProps = {this.props.google}
             gZoom = {17}
             gOnMarkerClick = {this.gOnMarkerClick}
-            gName = {'Current location'}
+            gName = {"Fred"}
+            gGroupName = {"Lunch"}
             gOnClose = {this.onInfoWindowClose}
         />
       </div>
