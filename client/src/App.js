@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-
+import logo from './logo.png';
 import FacebookLogin from 'react-facebook-login';
 import Sidebar from "react-sidebar";
 import firebase from "./utils/firebase.js";
 import { GoogleApiWrapper } from 'google-maps-react';
 import MapBox from "./components/MapBox";
+import API from "./utils/API";
 
 import './App.css';
 
@@ -18,7 +19,7 @@ class App extends Component {
       sidebarOpen: true,
 
       name: "",
-      id: null
+      id: "",
 
       chatText: "",
       messagesArray: []
@@ -38,8 +39,18 @@ class App extends Component {
       newMessagesArray.push(snapshot.val());
 
       this.setState({ messagesArray: newMessagesArray });
-    })
+      
+    });
+      this.loadUsers();
   }
+
+  loadUsers = () => {
+    API.getUsers()
+      .then(res =>
+        this.setState({ users: res.data, name: "", id: "", },() => console.log(res.data))
+      )
+      .catch(err => console.log(err));
+  };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -58,6 +69,7 @@ class App extends Component {
 
   responseFacebook = (response) => {
     console.log(response);
+
     // make a API request to your server to save the user's info to your database
     // this.setState to save some of the info in your local React state
   }
