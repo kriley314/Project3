@@ -10,17 +10,19 @@ mongoose.connect(
 
 const usersSeed = [
   {
-    id: "1234",
+    accessToken: "0okjn9uhb8yg",
     email: "1234@email.com",
     name: "User1234",
     userID: "1234",
+    groups: [],
     date: new Date(Date.now())
   },
   {
-    id: "5678",
+    accessToken: "1qaz2wsx5tgb6yhn",
     email: "5678@email.com",
     name: "User5678",
     userID: "5678",
+    groups: [],
     date: new Date(Date.now())
   },
 ];
