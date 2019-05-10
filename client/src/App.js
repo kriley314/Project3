@@ -1,28 +1,31 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom'
-// import Chat from "./Chat";
-// import logo from './logo.svg';
-
-// import FacebookLogin from 'react-facebook-login';
-// import GoogleLogin from 'react-google-login';
-// import Sidebar from "react-sidebar";
-//import logo from './logo.svg';
+import logo from './logo.png';
 import FacebookLogin from 'react-facebook-login';
-import GoogleLogin from 'react-google-login';
 import Sidebar from "react-sidebar";
 import firebase from "./utils/firebase.js";
 import { GoogleApiWrapper } from 'google-maps-react';
-
 import MapBox from "./components/MapBox";
+import API from "./utils/API";
+import ReactDOM from 'react-dom'
+
 
 import './App.css';
+
+require("dotenv").config();
+
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       sidebarOpen: true,
+
+      name: "",
+      id: "",
+
       chatText: "",
       messagesArray: []
+
     };
     this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
   }
@@ -44,18 +47,39 @@ class App extends Component {
       newMessagesArray.push(snapshot.val());
 
       this.setState({ messagesArray: newMessagesArray });
-    })
+      
+    });
+      this.loadUsers();
   }
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+  loadUsers = () => {
+    API.getUsers()
+      .then(res =>
+        this.setState({ users: res.data, name: "", id: "", },() => console.log(res.data))
+      )
+      .catch(err => console.log(err));
   };
 
 
   //handleCreateGroup = props => {
     //firebase.database().ref();
   // }
+  saveUsers = (data) => {
+    API.saveUser(data)
+    .then(res => 
+      console.log(res))
+  }
+  
+  handleOnClick = event => {
+    event.preventDefault();
+        if (this.state.name) {
+          API.saveUser({
+            name: this.state.name,
+          })
+            .then(res => this.loadUsers())
+            .catch(err => console.log(err));
+        }
+      };
 
   chatSubmit = event => {
     event.preventDefault();
@@ -67,84 +91,76 @@ class App extends Component {
     ReactDOM.findDOMNode(this.refs.chatarea).value="";
   }
 
+
+  responseFacebook = (response) => {
+    console.log(response);
+    this.saveUsers(response);
+
+    // make a API request to your server to save the user's info to your database
+    // this.setState to save some of the info in your local React state
+  }
+
+  // responseGoogle = (response) => {
+  //   console.log(response);
+  // };
+
+  
+
   render() {
-    const responseFacebook = (response) => {
-      console.log(response);
-    }
-
-    const responseGoogle = (response) => {
-      console.log(response);
-    }
-
-
     return (
       <div className="App">
         <Sidebar
           sidebar={<b>
+            <div>
+            <img id="logo-image" src={logo} alt="catchup-app-logo" />
+            </div>
+
+            <div className="about-text">
+            <p>The CatchUp! app allows you to
+              create, share and join private location based groups.
+            </p>
+            
+            </div>
             <div
               style={{ padding: 40 }}>
               <br />
               <FacebookLogin
-                appId=""
+                appId={process.env.REACT_APP_FACEBOOKLOGIN}
                 fields="name,email,picture"
-                callback={responseFacebook}
+                callback={this.responseFacebook}
               />
               <br />
               <br />
-
-              <GoogleLogin
-                clientId=""
-                buttonText="Login with Google"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-              />
             </div>
+
             <div class="btn-group">
-              <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                My Groups <i class="fas fa-users"></i>
+              <button type="button" className="btn btn-dark dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                My Groups <i className="fas fa-users"></i>
               </button>
-              <div class="dropdown-menu dropdown-menu-lg-right">
-                <button class="dropdown-item" type="button">Action</button>
-                <button class="dropdown-item" type="button">Another action</button>
-                <button class="dropdown-item" type="button">Something else here</button>
-              </div>
             </div>
 
             <br />
             <br />
             <hr />
 
-            <div class="btn-group">
-              <button type="button" class="btn btn-dark">
-                Current Group <i class="fas fa-users"></i>
+            <div className="btn-group">
+              <button type="button" className="btn btn-dark">
+                Current Group <i className="fas fa-users"></i>
               </button>
-              <button type="button" class="btn btn-dark">
-                Change Group <i class="fas fa-users"></i>
-              </button>
-              <div class="dropdown-menu dropdown-menu-lg-right">
-                <button class="dropdown-item" type="button">Action</button>
-                <button class="dropdown-item" type="button">Another action</button>
-                <button class="dropdown-item" type="button">Something else here</button>
+              <div className="dropdown-menu dropdown-menu-lg-right">
+                <button className="dropdown-item" type="button">Action</button>
+                <button className="dropdown-item" type="button">Another action</button>
+                <button className="dropdown-item" type="button">Something else here</button>
               </div>
             </div>
             <br />
-            <i class="fas fa-user-circle fa-3x" style={{ marginRight: 5, marginTop: 10 }}></i>
-            <i class="fas fa-user-circle fa-3x" style={{ marginRight: 5, marginLeft: 10, marginTop: 5 }}></i>
-            <i class="fas fa-user-circle fa-3x" style={{ marginLeft: 5, marginTop: 10 }}></i>
+            <i className="fas fa-user-circle fa-3x" style={{ marginRight: 5, marginTop: 10 }}></i>
+            <i className="fas fa-user-circle fa-3x" style={{ marginRight: 5, marginLeft: 10, marginTop: 5 }}></i>
+            <i className="fas fa-user-circle fa-3x" style={{ marginLeft: 5, marginTop: 10 }}></i>
             <br />
             <br />
             <br />
-            {/* <div className="messages">
-              if (this.state.data) {
-                this.state.messages.map(function (comment) {
-                return (
-                  <div>
-                    {message.author}: {message.message}
-                  </div>
-                )
-              });
-            };
-            </div> */}
+           
             <form>
               <div className="form-group">
                 <button onClick= {this.chatSubmit} style={{ marginBottom: 10 }} type="button" class="btn btn-dark" >Chat <i className="far fa-comment-alt" style={{ marginLeft: 5 }}></i></button>
@@ -157,14 +173,16 @@ class App extends Component {
                 <p>{messageObj.name} said: "{messageObj.message}"</p>
               )}
             </div>
+
           </b>}
           open={this.state.sidebarOpen}
           onSetOpen={this.onSetSidebarOpen}
           styles={{ sidebar: { background: "white" } }}
         >
           <button onClick={() => this.onSetSidebarOpen(true)}>
-            Open sidebar
+            Menu
         </button>
+
         </Sidebar>
         <br />
         <br />
@@ -184,6 +202,4 @@ class App extends Component {
 export default GoogleApiWrapper({
   apiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
 })(App)
-
-
 
