@@ -52,10 +52,22 @@ class App extends Component {
       .catch(err => console.log(err));
   };
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  };
+  saveUsers = (data) => {
+    API.saveUser(data)
+    .then(res => 
+      console.log(res))
+  }
+  
+  handleOnClick = event => {
+    event.preventDefault();
+        if (this.state.name) {
+          API.saveUser({
+            name: this.state.name,
+          })
+            .then(res => this.loadUsers())
+            .catch(err => console.log(err));
+        }
+      };
 
   chatSubmit = event => {
     event.preventDefault();
@@ -69,6 +81,7 @@ class App extends Component {
 
   responseFacebook = (response) => {
     console.log(response);
+    this.saveUsers(response);
 
     // make a API request to your server to save the user's info to your database
     // this.setState to save some of the info in your local React state
@@ -77,6 +90,8 @@ class App extends Component {
   // responseGoogle = (response) => {
   //   console.log(response);
   // };
+
+  
 
   render() {
     return (
@@ -106,53 +121,38 @@ class App extends Component {
             </div>
 
             <div class="btn-group">
-              <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                My Groups <i class="fas fa-users"></i>
+              <button type="button" className="btn btn-dark dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                My Groups <i className="fas fa-users"></i>
               </button>
-              <div class="dropdown-menu dropdown-menu-lg-right">
-                <button class="dropdown-item" type="button">Action</button>
-                <button class="dropdown-item" type="button">Another action</button>
-                <button class="dropdown-item" type="button">Something else here</button>
-              </div>
             </div>
 
             <br />
             <br />
             <hr />
 
-            <div class="btn-group">
-              <button type="button" class="btn btn-dark">
-                Current Group <i class="fas fa-users"></i>
+            <div className="btn-group">
+              <button type="button" className="btn btn-dark">
+                Current Group <i className="fas fa-users"></i>
               </button>
-              <div class="dropdown-menu dropdown-menu-lg-right">
-                <button class="dropdown-item" type="button">Action</button>
-                <button class="dropdown-item" type="button">Another action</button>
-                <button class="dropdown-item" type="button">Something else here</button>
+              <div className="dropdown-menu dropdown-menu-lg-right">
+                <button className="dropdown-item" type="button">Action</button>
+                <button className="dropdown-item" type="button">Another action</button>
+                <button className="dropdown-item" type="button">Something else here</button>
               </div>
             </div>
             <br />
-            <i class="fas fa-user-circle fa-3x" style={{ marginRight: 5, marginTop: 10 }}></i>
-            <i class="fas fa-user-circle fa-3x" style={{ marginRight: 5, marginLeft: 10, marginTop: 5 }}></i>
-            <i class="fas fa-user-circle fa-3x" style={{ marginLeft: 5, marginTop: 10 }}></i>
+            <i className="fas fa-user-circle fa-3x" style={{ marginRight: 5, marginTop: 10 }}></i>
+            <i className="fas fa-user-circle fa-3x" style={{ marginRight: 5, marginLeft: 10, marginTop: 5 }}></i>
+            <i className="fas fa-user-circle fa-3x" style={{ marginLeft: 5, marginTop: 10 }}></i>
             <br />
             <br />
             <br />
-            {/* <div className="messages">
-              if (this.state.data) {
-                this.state.messages.map(function (comment) {
-                return (
-                  <div>
-                    {message.author}: {message.message}
-                  </div>
-                )
-              });
-            };
-            </div> */}
+           
             <form>
               <div className="form-group">
-                <button onClick={this.chatSubmit} style={{ marginBottom: 10 }} type="button" class="btn btn-dark">Chat <i className="far fa-comment-alt" style={{ marginLeft: 5 }}></i></button>
+                <button onClick={this.chatSubmit} style={{ marginBottom: 10 }} type="button" className="btn btn-dark">Chat <i className="far fa-comment-alt" style={{ marginLeft: 5 }}></i></button>
 
-                <textarea style={{ padding: 10 }} onChange={this.handleInputChange} name="chatText" className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea style={{ padding: 10 }} onChange={this.handleInputChange} className="chatText" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
               </div>
             </form>
             <div className="messageContainer">
