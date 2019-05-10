@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom'
 // import Chat from "./Chat";
 // import logo from './logo.svg';
 
@@ -31,8 +32,14 @@ class App extends Component {
   };
 
   componentDidMount() {
+    // var ref = firebase.database().ref("/chat");
+    // ref.once("value")
+    //   .then(function (snapshot) {
+    //     console.log(snapshot.val());
+    //   });
     firebase.database().ref("/chat").orderByChild("time").on("child_added", snapshot => {
-      console.log(snapshot.val());
+
+      console.log("Snapshot: ",snapshot.val());
       const newMessagesArray = this.state.messagesArray;
       newMessagesArray.push(snapshot.val());
 
@@ -45,13 +52,19 @@ class App extends Component {
     this.setState({ [name]: value });
   };
 
+
+  //handleCreateGroup = props => {
+    //firebase.database().ref();
+  // }
+
   chatSubmit = event => {
     event.preventDefault();
     firebase.database().ref("/chat").push({
       name: "brendan",
       message: this.state.chatText,
-      time: firebase.database.ServerValue.TIMESTAMP
+      time: firebase.database.ServerValue.TIMESTAMP,
     })
+    ReactDOM.findDOMNode(this.refs.chatarea).value="";
   }
 
   render() {
@@ -105,6 +118,9 @@ class App extends Component {
               <button type="button" class="btn btn-dark">
                 Current Group <i class="fas fa-users"></i>
               </button>
+              <button type="button" class="btn btn-dark">
+                Change Group <i class="fas fa-users"></i>
+              </button>
               <div class="dropdown-menu dropdown-menu-lg-right">
                 <button class="dropdown-item" type="button">Action</button>
                 <button class="dropdown-item" type="button">Another action</button>
@@ -131,13 +147,13 @@ class App extends Component {
             </div> */}
             <form>
               <div className="form-group">
-                <button onClick={this.chatSubmit} style={{ marginBottom: 10 }} type="button" class="btn btn-dark">Chat <i className="far fa-comment-alt" style={{ marginLeft: 5 }}></i></button>
+                <button onClick= {this.chatSubmit} style={{ marginBottom: 10 }} type="button" class="btn btn-dark" >Chat <i className="far fa-comment-alt" style={{ marginLeft: 5 }}></i></button>
 
-                <textarea style={{ padding: 10 }} onChange={this.handleInputChange} name="chatText" className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea style={{ padding: 10 }} onChange={this.handleInputChange} name="chatText" className="form-control" id="exampleFormControlTextarea1" ref="chatarea" rows="3"></textarea>
               </div>
             </form>
             <div className="messageContainer">
-              {this.state.messagesArray.map(messageObj => 
+              {this.state.messagesArray.map(messageObj =>
                 <p>{messageObj.name} said: "{messageObj.message}"</p>
               )}
             </div>
@@ -153,11 +169,11 @@ class App extends Component {
         <br />
         <br />
         <MapBox
-            gProps = {this.props.google}
-            gZoom = {17}
-            gOnMarkerClick = {this.gOnMarkerClick}
-            gName = {'Current location'}
-            gOnClose = {this.onInfoWindowClose}
+          gProps={this.props.google}
+          gZoom={17}
+          gOnMarkerClick={this.gOnMarkerClick}
+          gName={'Current location'}
+          gOnClose={this.onInfoWindowClose}
         />
       </div>
     );
