@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/catchuplist");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/catchupdb");
 
 // socket.io connection
 var socket = require('socket.io');
@@ -31,8 +31,6 @@ io.on('connection', (socket) => {
         io.emit('RECEIVE_MESSAGE', data);
     })
 });
-
-
 
 
 // Start the API server
