@@ -51,3 +51,7 @@ width: 50%
   overflow: auto;
   background: #f9f9f9;
 }
+
+.messageContainer{
+  word-wrap: break-word;
+}
