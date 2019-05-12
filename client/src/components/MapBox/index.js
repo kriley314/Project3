@@ -5,6 +5,7 @@ import "./style.css";
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 
 var thompsonConference = { lat: 30.28715, lng: -97.72910 };
+var brendansHouse = { lat: 30.204272799999995, lng: -97.6928093 };
 
 const style = {
     width: '100%',
@@ -31,6 +32,13 @@ class MapBox extends Component {
             console.log( snapshot.val());
             const newPinsObject = snapshot.val();
 
+            // I still think I need to have processing here that will remove the map reference in 
+            // each pin that is in the current pinsArray state member.
+//            const oldPinsArray = this.props.pinsArray;
+//            for ( let i = 0; i < oldPinsArray.length; i++ ) {
+//                oldPinsArray[ i ].
+//            }
+
             // Now loop through the NEW pins objects and create convert to array of pins locations..
             const newPinsArray = Object.keys( newPinsObject ).map(( elem ) => {
                 return { groupID: newPinsObject[ elem ].groupID,
@@ -52,7 +60,7 @@ console.log( newPinsArray );
 
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
-
+console.log( "Just got geolocation: " + latitude + ":" + longitude );
             if ( "geolocation" in navigator ) {
                 // If the user accepted location services, write their name, group, and position in the database.
                 // Since 'push' is being used, firebase creates a unique ID based on time and entropy that is the parent of the data
@@ -60,11 +68,11 @@ console.log( newPinsArray );
                 
                 const ref = firebase.database().ref( "/pins" ).push({ groupID: this.props.gGroupName,
                                                               name: this.props.gName, x: latitude, y: longitude });
+console.log( "Just added row in pins table for: " + this.props.gGroupName + ":" + this.props.gName + ":" +
+                                                    latitude + ":" + longitude );
+                // Setup a call to take care of cleaning up - removing our line in Firebase - on disconnect..
                 ref.onDisconnect().remove();
                 this.setState({ positionRef: ref });
-
-                // Setup a call to take care of cleaning up - removing our line in Firebase - on disconnect..
-            //    positionRef.onDisconnect().remove();
             }
             else {
                 // No navigation ability will notify the user
@@ -86,6 +94,7 @@ console.log( newPinsArray );
                 // Since 'push' is being used, firebase creates a unique ID based on time and entropy that is the parent of the data
                 // In addition to writing data, positionRef's value is equal to the unique ID generated so that it can be referenced later
                 this.state.positionRef.set({ groupID: this.props.gGroupName, name: this.props.gName, x: latitude, y: longitude });
+console.log( "Just updated my position in Firebase.." );
             }
             else {
                 // No navigation ability will notify the user
@@ -95,6 +104,7 @@ console.log( newPinsArray );
     }
 
     countdown = () => {
+console.log( "Inside countdown.." );
         var seconds = 60;
         function tick() {
             seconds--;
@@ -111,11 +121,12 @@ console.log( newPinsArray );
 
 
     render() {
+console.log( "Here at render with pins: " + this.state.pinsArray );
         return (
             <div>
                 <Map google = { this.props.google }
                     style = { style }
-                    initialCenter = { thompsonConference }
+                    initialCenter = { brendansHouse }
                     zoom = { this.props.gZoom }
                     name = { this.props.gName }
                 >
