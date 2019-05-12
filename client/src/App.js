@@ -5,10 +5,10 @@ import Sidebar from "react-sidebar";
 // import firebase from "./utils/firebase.js";
 import { GoogleApiWrapper } from 'google-maps-react';
 import MapBox from "./components/MapBox";
-import API from "./utils/API";
-// import ReactDOM from 'react-dom'
-import ChatBox from "./components/Chatbox";
 
+// import ReactDOM from 'react-dom'
+import ChatBox from "./components/ChatBox";
+import API from "./utils/API";
 
 import './App.css';
 
