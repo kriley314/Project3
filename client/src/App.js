@@ -157,7 +157,7 @@ class App extends Component {
             <div className="text-box">
               <p>
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                  Join Group
+                  Join a Group
               </button>
               </p>
               <div class="collapse" id="collapseExample">
