@@ -41,46 +41,46 @@ class App extends Component {
     //   .then(function (snapshot) {
     //     console.log(snapshot.val());
     //   });
-  //   firebase.database().ref("/chat").orderByChild("time").on("child_added", snapshot => {
+    //   firebase.database().ref("/chat").orderByChild("time").on("child_added", snapshot => {
 
-  //     console.log("Snapshot: ",snapshot.val());
-  //     const newMessagesArray = this.state.messagesArray;
-  //     newMessagesArray.push(snapshot.val());
+    //     console.log("Snapshot: ",snapshot.val());
+    //     const newMessagesArray = this.state.messagesArray;
+    //     newMessagesArray.push(snapshot.val());
 
-  //     this.setState({ messagesArray: newMessagesArray });
-      
-  //   });
-      this.loadUsers();
+    //     this.setState({ messagesArray: newMessagesArray });
+
+    //   });
+    this.loadUsers();
   }
 
   loadUsers = () => {
     API.getUsers()
       .then(res =>
-        this.setState({ users: res.data, name: "", id: "", },() => console.log(res.data))
+        this.setState({ users: res.data, name: "", id: "", }, () => console.log(res.data))
       )
       .catch(err => console.log(err));
   };
 
 
   //handleCreateGroup = props => {
-    //firebase.database().ref();
+  //firebase.database().ref();
   // }
   saveUsers = (data) => {
     API.saveUser(data)
-    .then(res => 
-      console.log(res))
+      .then(res =>
+        console.log(res))
   }
-  
+
   handleOnClick = event => {
     event.preventDefault();
-        if (this.state.name) {
-          API.saveUser({
-            name: this.state.name,
-          })
-            .then(res => this.loadUsers())
-            .catch(err => console.log(err));
-        }
-      };
+    if (this.state.name) {
+      API.saveUser({
+        name: this.state.name,
+      })
+        .then(res => this.loadUsers())
+        .catch(err => console.log(err));
+    }
+  };
 
 
   // chatSubmit = event => {
@@ -107,7 +107,7 @@ class App extends Component {
   //   console.log(response);
   // };
 
-  
+
 
   render() {
     return (
@@ -115,14 +115,13 @@ class App extends Component {
         <Sidebar
           sidebar={<b>
             <div>
-            <img id="logo-image" src={logo} alt="catchup-app-logo" />
+              <img id="logo-image" src={logo} alt="catchup-app-logo" />
             </div>
 
             <div className="about-text">
-            <p>The CatchUp! app allows you to
-              create, share and join private location based groups.
-            </p>
-            
+              {/* <p>The CatchUp! app allows you to
+                create, share and join private location based groups.
+              </p> */}
             </div>
             <div
               style={{ padding: 40 }}>
@@ -136,36 +135,49 @@ class App extends Component {
               <br />
             </div>
 
-            <div class="btn-group">
-              <button type="button" className="btn btn-dark dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                My Groups <i className="fas fa-users"></i>
+            {/* Create group box */}
+            <div className="text-box">
+              <p>
+                <button className="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  Create Group
               </button>
-            </div>
-
-            <br />
-            <br />
-            <hr />
-
-            <div className="btn-group">
-              <button type="button" className="btn btn-dark">
-                Current Group <i className="fas fa-users"></i>
-              </button>
-              <div className="dropdown-menu dropdown-menu-lg-right">
-                <button className="dropdown-item" type="button">Action</button>
-                <button className="dropdown-item" type="button">Another action</button>
-                <button className="dropdown-item" type="button">Something else here</button>
+              </p>
+              <div className="collapse" id="collapseExample">
+                <div className="card card-body">
+                  <div className="input-group mb-3">
+                    <input type="text" className="form-control" placeholder="Group Name" aria-label="Group Name" aria-describedby="button-addon2" />
+                    <div className="input-group-append">
+                      <button className="btn btn-outline-secondary" type="button" id="button-addon">Create</button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+            {/* Create group box */}
+            <div className="text-box">
+              <p>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  Join Group
+              </button>
+              </p>
+              <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Group Name" aria-label="Group Name" aria-describedby="button-addon2" />
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Join</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <br />
-            <i className="fas fa-user-circle fa-3x" style={{ marginRight: 5, marginTop: 10 }}></i>
-            <i className="fas fa-user-circle fa-3x" style={{ marginRight: 5, marginLeft: 10, marginTop: 5 }}></i>
-            <i className="fas fa-user-circle fa-3x" style={{ marginLeft: 5, marginTop: 10 }}></i>
             <br />
-            <br />
-            <br />
-           <ChatBox
-            name = {"brendan"}
-            messagesArray = {this.state.messagesArray}
+        
+            <ChatBox
+              name={"brendan"}
+              messagesArray={this.state.messagesArray}
             />
 
           </b>}
@@ -181,12 +193,12 @@ class App extends Component {
         <br />
         <br />
         <MapBox
-            gProps = {this.props.google}
-            gZoom = {17}
-            gOnMarkerClick = {this.gOnMarkerClick}
-            gName = {"Fred"}
-            gGroupName = {"Lunch"}
-            gOnClose = {this.onInfoWindowClose}
+          gProps={this.props.google}
+          gZoom={17}
+          gOnMarkerClick={this.gOnMarkerClick}
+          gName={"Fred"}
+          gGroupName={"Lunch"}
+          gOnClose={this.onInfoWindowClose}
         />
       </div>
     );
