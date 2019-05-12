@@ -7,7 +7,7 @@ import { GoogleApiWrapper } from 'google-maps-react';
 import MapBox from "./components/MapBox";
 
 // import ReactDOM from 'react-dom'
-import ChatBox from "./components/ChatBox";
+import ChatBox from "./components/chatbox";
 import API from "./utils/API";
 
 import './App.css';
