@@ -139,7 +139,7 @@ class App extends Component {
             <div className="text-box">
               <p>
                 <button className="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                  Create Group
+                  Create A Group
               </button>
               </p>
               <div className="collapse" id="collapseExample">
