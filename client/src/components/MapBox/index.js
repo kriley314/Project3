@@ -4,8 +4,7 @@ import "./style.css";
 
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 
-// var thompsonConference = { lat: 30.28715, lng: -97.72910 };
-var brendansHouse = { lat: 30.204272799999995, lng: -97.6928093 };
+var thompsonConference = { lat: 30.28715, lng: -97.72910 };
 
 const style = {
     width: '100%',
@@ -20,7 +19,8 @@ class MapBox extends Component {
         super(props);
         this.state = {
             pinsArray: [],
-            positionRef: null
+            positionRef: null,
+            myPosition: thompsonConference
         };
     }
 
@@ -47,8 +47,6 @@ class MapBox extends Component {
                     x: newPinsObject[elem].x,
                     y: newPinsObject[elem].y
                 };
-
-
             });
 
             console.log(newPinsArray);
@@ -62,8 +60,9 @@ class MapBox extends Component {
 
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
-            console.log("Just got geolocation: " + latitude + ":" + longitude);
-            if ("geolocation" in navigator) {
+            this.setState({ myPosition: { latitude, longitude }});
+console.log( "Just got geolocation: " + latitude + ":" + longitude );
+            if ( "geolocation" in navigator ) {
                 // If the user accepted location services, write their name, group, and position in the database.
                 // Since 'push' is being used, firebase creates a unique ID based on time and entropy that is the parent of the data
                 // In addition to writing data, positionRef's value is equal to the unique ID generated so that it can be referenced later
@@ -123,21 +122,33 @@ class MapBox extends Component {
         tick();
     }
 
+    populateMarkers = () => {
+        const markersArr = this.state.pinsArray.map(( elem, index ) => {
+            console.log( "Marker: " + elem.name + ":" + elem.x + ":" + elem.y );
+            return <Marker key={index} lat={elem.x} lng={elem.y} title={elem.name} label={elem.name}/>
+        });
+        console.log(markersArr);
+        return markersArr;
+    }
+
 
     render() {
-        console.log("Here at render with pins: " + this.state.pinsArray);
         return (
             <div>
-                <Map google={this.props.google}
-                    style={style}
-                    initialCenter={brendansHouse}
-                    zoom={this.props.gZoom}
-                    name={this.props.gName}
-                >
+                <Map google = { this.props.google }
+                    style = { style }
+                    initialCenter = { thompsonConference }
+                    zoom = { this.props.gZoom }
+                    name = { this.props.gName }>
                     {
-                        this.state.pinsArray.map((elem) => {
-                            return <Marker title={elem.name} label={elem.name} lat={elem.x} lng={elem.y} />
-                        })
+                        this.state.pinsArray.map( marker => (
+                            <Marker
+                                title={marker.name}
+                                label={marker.name}
+                                position={{ lat: marker.x, lng: marker.y }}
+                                key={marker.key}
+                            />
+                        ))
                     }
                 </Map>
             </div>
