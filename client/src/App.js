@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.png';
 import FacebookLogin from 'react-facebook-login';
 import Sidebar from "react-sidebar";
+import LeaveGroup from "./components/LeaveGroup";
 // import firebase from "./utils/firebase.js";
 import { GoogleApiWrapper } from 'google-maps-react';
 import MapBox from "./components/MapBox";
@@ -130,7 +131,7 @@ class App extends Component {
               <div className="collapse" id="collapseExample">
                 <div className="card card-body">
                   <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="Group Name" aria-label="Group Name" aria-describedby="button-addon2" />
+                    <input type="text" className="form-control" placeholder="Create your own group name" aria-label="Group Name" aria-describedby="button-addon2" />
                     <div className="input-group-append">
                       <button className="btn btn-outline-secondary" type="button" id="button-addon">Create</button>
                     </div>
@@ -142,16 +143,16 @@ class App extends Component {
             {/* Join group box */}
             <div className="text-box">
               <p>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
                   Join a Group
               </button>
               </p>
-              <div class="collapse" id="collapseExample">
+              <div class="collapse" id="collapseExample1">
                 <div class="card card-body">
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Group Name" aria-label="Group Name" aria-describedby="button-addon2" />
+                    <input type="text" class="form-control" placeholder="Type in the group you want to join" aria-label="Group Name" aria-describedby="button-addon2" />
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Join</button>
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon">Join</button>
                     </div>
                   </div>
                 </div>
