@@ -49,7 +49,7 @@ class ChatBox extends Component {
   chatSubmit = event => {
     event.preventDefault();
     firebase.database().ref("/chat").push({
-      name: "brendan",
+      name: this.state.name,
       groupName: this.props.groupName,
       message: this.state.chatText,
       time: firebase.database.ServerValue.TIMESTAMP

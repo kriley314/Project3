@@ -138,7 +138,7 @@ class App extends Component {
               <div class="collapse" id="collapseExample1">
                 <div class="card card-body">
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Type in the group you want to join" aria-label="Group Name" aria-describedby="button-addon2" />
+                    <input type="text" class="form-control" placeholder="Group Name" aria-label="Group Name" aria-describedby="button-addon2" />
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary" type="button" id="button-addon">Join</button>
                     </div>
@@ -151,7 +151,7 @@ class App extends Component {
             <br />
         
             <ChatBox
-              name={"brendan"}
+              name={this.state.name}
               groupName={"ACL"}
               messagesArray={this.state.messagesArray}
             />
@@ -172,7 +172,7 @@ class App extends Component {
           gProps={this.props.google}
           gZoom={17}
           gOnMarkerClick={this.gOnMarkerClick}
-          gName={"Fred"}
+          gName={this.state.name}
           gGroupName={"Lunch"}
           gOnClose={this.onInfoWindowClose}
         />
