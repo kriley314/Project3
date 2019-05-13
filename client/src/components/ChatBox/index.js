@@ -15,13 +15,21 @@ class ChatBox extends Component {
 
 
   componentDidMount() {
-    firebase.database().ref("/chat").orderByChild("time").on("child_added", snapshot => {
+
+    // firebase.database().ref("/chat").orderByChild("time").on("child_added", snapshot => {
+    firebase.database().ref("/chat").orderByChild("groupName").equalTo(this.props.groupName)
+                                    //  .orderByChild("time").on("child_added", snapshot => {
+                                     .on("child_added", snapshot => {
+
       console.log("Snapshot: ", snapshot.val());
       console.log('messages', this.state.messagesArray)
       const newMessagesArray = this.state.messagesArray;
       newMessagesArray.push(snapshot.val());
       this.setState({ messagesArray: newMessagesArray });
     })
+
+
+
     this.loadUsers();
   }
 
@@ -40,8 +48,9 @@ class ChatBox extends Component {
 
   chatSubmit = event => {
     event.preventDefault();
-    firebase.database().ref("/chat/group2").push({
+    firebase.database().ref("/chat").push({
       name: this.state.name,
+      groupName: this.props.groupName,
       message: this.state.chatText,
       time: firebase.database.ServerValue.TIMESTAMP
     })

@@ -152,6 +152,7 @@ class App extends Component {
         
             <ChatBox
               name={this.state.name}
+              groupName={"ACL"}
               messagesArray={this.state.messagesArray}
             />
 

@@ -15,7 +15,7 @@ class CreateGroup extends Component {
       console.log('groups', this.state.groupList)
       const newGroupList = this.state.groupList;
 
-//      newGroupList.push(snapshot.val());
+      // newGroupList.push(snapshot.val());
 
       this.setState({ groupList: newGroupList });
     })
