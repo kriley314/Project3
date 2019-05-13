@@ -11,7 +11,6 @@ import ChatBox from "./components/ChatBox";
 import API from "./utils/API";
 
 import './App.css';
-import CreateGroup from './components/CreateGroup/';
 
 require("dotenv").config();
 
@@ -26,10 +25,10 @@ class App extends Component {
       id: "",
 
       chatText: "",
-      messagesArray: []
+      messagesArray: [],
 
       groupName: "",
-      
+
     };
     this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
   }
@@ -85,38 +84,21 @@ class App extends Component {
     }
   };
 
-
-  // chatSubmit = event => {
-  //   event.preventDefault();
-  //   firebase.database().ref("/chat").push({
-  //     name: "brendan",
-  //     message: this.state.chatText,
-  //     time: firebase.database.ServerValue.TIMESTAMP,
-  //   })
-  //   ReactDOM.findDOMNode(this.refs.chatarea).value="";
-  // }
-
-
-
   responseFacebook = (response) => {
     console.log(response);
     this.saveUsers(response);
-
-    // make a API request to your server to save the user's info to your database
-    // this.setState to save some of the info in your local React state
   }
-
-  // responseGoogle = (response) => {
-  //   console.log(response);
-  // };
-
-
 
   render() {
     return (
       <div className="App">
         <Sidebar
           sidebar={<b>
+
+            <button onClick={() => this.onSetSidebarOpen(false)}>
+              &times;
+        </button>
+
             <div>
               <img id="logo-image" src={logo} alt="catchup-app-logo" />
             </div>
@@ -139,10 +121,23 @@ class App extends Component {
             </div>
 
             {/* Create group box */}
-           <CreateGroup
-           groupName={this.state.groupName}
-           name={this.state.name}
-           />
+            <div className="text-box">
+              <p>
+                <button className="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  Create Group
+      </button>
+              </p>
+              <div className="collapse" id="collapseExample">
+                <div className="card card-body">
+                  <div className="input-group mb-3">
+                    <input type="text" className="form-control" placeholder="Group Name" aria-label="Group Name" aria-describedby="button-addon2" />
+                    <div className="input-group-append">
+                      <button className="btn btn-outline-secondary" type="button" id="button-addon">Create</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             {/* Join group box */}
             <div className="text-box">
@@ -165,7 +160,7 @@ class App extends Component {
 
             <br />
             <br />
-        
+
             <ChatBox
               name={"brendan"}
               messagesArray={this.state.messagesArray}
@@ -177,8 +172,8 @@ class App extends Component {
           styles={{ sidebar: { background: "white" } }}
         >
           <button onClick={() => this.onSetSidebarOpen(true)}>
-            Menu
-        </button>
+            <i class="fas fa-bars"></i>
+          </button>
 
         </Sidebar>
         <br />
