@@ -11,6 +11,7 @@ import ChatBox from "./components/ChatBox";
 import API from "./utils/API";
 
 import './App.css';
+import CreateGroup from './components/CreateGroup/';
 
 require("dotenv").config();
 
@@ -27,6 +28,8 @@ class App extends Component {
       chatText: "",
       messagesArray: []
 
+      groupName: "",
+      
     };
     this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
   }
@@ -136,28 +139,16 @@ class App extends Component {
             </div>
 
             {/* Create group box */}
-            <div className="text-box">
-              <p>
-                <button className="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                  Create A Group
-              </button>
-              </p>
-              <div className="collapse" id="collapseExample">
-                <div className="card card-body">
-                  <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="Group Name" aria-label="Group Name" aria-describedby="button-addon2" />
-                    <div className="input-group-append">
-                      <button className="btn btn-outline-secondary" type="button" id="button-addon">Create</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Create group box */}
+           <CreateGroup
+           groupName={this.state.groupName}
+           name={this.state.name}
+           />
+
+            {/* Join group box */}
             <div className="text-box">
               <p>
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                  Join Group
+                  Join a Group
               </button>
               </p>
               <div class="collapse" id="collapseExample">
