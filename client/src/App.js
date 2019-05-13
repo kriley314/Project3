@@ -151,7 +151,7 @@ class App extends Component {
             <br />
         
             <ChatBox
-              name={"brendan"}
+              name={this.state.name}
               messagesArray={this.state.messagesArray}
             />
 
@@ -171,7 +171,7 @@ class App extends Component {
           gProps={this.props.google}
           gZoom={17}
           gOnMarkerClick={this.gOnMarkerClick}
-          gName={"Fred"}
+          gName={this.state.name}
           gGroupName={"Lunch"}
           gOnClose={this.onInfoWindowClose}
         />
