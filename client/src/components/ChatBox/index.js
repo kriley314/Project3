@@ -18,10 +18,10 @@ class ChatBox extends Component {
   componentDidMount() {
 
     firebase.database().ref("/chat").orderByChild("groupName").equalTo(this.props.groupName).on("child_added", snapshot => {
-      console.log("Snapshot: ", snapshot.val());
-      console.log('messages', this.state.messagesArray)
+
       const newMessagesArray = this.state.messagesArray;
-      newMessagesArray.push(snapshot.val());
+      newMessagesArray.unshift(snapshot.val());
+
       this.setState({ messagesArray: newMessagesArray });
     })
 
