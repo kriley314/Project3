@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import ReactDOM from './node_modules/react-dom';
+import ReactDOM from 'react-dom';
 import firebase from "../../utils/firebase.js";
 import API from "../../utils/API";
 
