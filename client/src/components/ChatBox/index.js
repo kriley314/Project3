@@ -17,17 +17,13 @@ class ChatBox extends Component {
 
   componentDidMount() {
 
-    // firebase.database().ref("/chat").orderByChild("time").on("child_added", snapshot => {
     firebase.database().ref("/chat").orderByChild("groupName").equalTo(this.props.groupName).on("child_added", snapshot => {
-
       console.log("Snapshot: ", snapshot.val());
       console.log('messages', this.state.messagesArray)
       const newMessagesArray = this.state.messagesArray;
       newMessagesArray.push(snapshot.val());
       this.setState({ messagesArray: newMessagesArray });
     })
-
-
 
     this.loadUsers();
   }
@@ -57,27 +53,9 @@ class ChatBox extends Component {
     this.setState({ chatText: "" })
   }
 
-
   render() {
     return (
       <div>
-        {/* <form>
-          <div className="form-group">
-            <button onClick={this.chatSubmit} style={{ marginBottom: 10 }} type="button" class="btn btn-dark">Chat <i className="far fa-comment-alt" style={{ marginLeft: 5 }}></i></button>
-
-            <textarea style={{ padding: 10 }} onChange={this.handleInputChange} name="chatText" className="form-control" id="exampleFormControlTextarea1" rows="3" value={this.state.chatText}></textarea>
-          </div>
-        </form> */}
-
-        {/* New message input
-        <div id="chatbox" class="input-group mb-3">
-          <input onChange={this.handleInputChange} name="chatText" type="text" class="form-control" placeholder="Message" aria-label="Message" aria-describedby="button-addon2" value={this.state.chatText} />
-          <div class="input-group-append">
-            <button onClick={this.chatSubmit} class="btn btn-dark" type="button" id="button-addon2">Send</button>
-          </div>
-        </div> */}
-
-        {/* collapse */}
         <div className="text-box">
           <p>
             <button className="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
@@ -92,19 +70,15 @@ class ChatBox extends Component {
                 </div>
               </div>
                  {/* // full chat container */}
-        <div className="messageContainer">
-          {this.state.messagesArray.map(messageObj =>
-            <p>{messageObj.name} said: "{messageObj.message}"</p>
-          )}
-        </div>
+              <div className="messageContainer">
+                {this.state.messagesArray.map(messageObj =>
+                  <p>{messageObj.name} said: "{messageObj.message}"</p>
+                )}
+              </div>
             </div>
          
           </div>
         </div>
-
-
-
-        
       </div>
     )
   }
