@@ -22,7 +22,7 @@ class CreateGroup extends Component {
   loadGroups = () => {
     API.getGroups()
       .then(res =>
-        this.setState({ groups: res.data, groupName: "", id: "", }, () => console.log(res.data))
+        this.setState({ groups: res.data }, () => console.log(res.data))
       )
       .catch(err => console.log(err));
   };
