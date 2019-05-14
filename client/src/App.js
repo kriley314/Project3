@@ -115,6 +115,8 @@ class App extends Component {
               <br />
               <FacebookLogin
                 appId={process.env.REACT_APP_FACEBOOKLOGIN}
+                autoLoad={true}
+                reauthenticate={true}
                 fields="name,email,picture"
                 callback={this.responseFacebook}
               />
