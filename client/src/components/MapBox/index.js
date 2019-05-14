@@ -136,6 +136,15 @@ console.log( "Just got geolocation: " + latitude + ":" + longitude );
     //     return markersArr;
     // }
 
+    populateMarkers = () => {
+        const markersArr = this.state.pinsArray.map(( elem, index ) => {
+            console.log( "Marker: " + elem.name + ":" + elem.x + ":" + elem.y );
+            return <Marker key={index} lat={elem.x} lng={elem.y} title={elem.name} label={elem.name}/>
+        });
+        console.log(markersArr);
+        return markersArr;
+    }
+
 
     render() {
         return (
