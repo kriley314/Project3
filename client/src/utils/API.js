@@ -16,5 +16,21 @@ export default {
   // Saves a user to the database
   saveUser: function(userData) {
     return axios.post("/api/users", userData);
+  },
+
+  getGroups: function() {
+    return axios.get("/api/groups");
+  },
+  // Gets the user with the given id
+  getGroup: function(id) {
+    return axios.get("/api/groups/" + id);
+  },
+  // Deletes the user with the given id
+  deleteGroup: function(id) {
+    return axios.delete("/api/groups/" + id);
+  },
+  // Saves a user to the database
+  saveGroup: function(groupData) {
+    return axios.post("/api/groups", groupData);
   }
 };

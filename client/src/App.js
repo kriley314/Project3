@@ -40,20 +40,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    // var ref = firebase.database().ref("/chat");
-    // ref.once("value")
-    //   .then(function (snapshot) {
-    //     console.log(snapshot.val());
-    //   });
-    //   firebase.database().ref("/chat").orderByChild("time").on("child_added", snapshot => {
-
-    //     console.log("Snapshot: ",snapshot.val());
-    //     const newMessagesArray = this.state.messagesArray;
-    //     newMessagesArray.push(snapshot.val());
-
-    //     this.setState({ messagesArray: newMessagesArray });
-
-    //   });
+    
     this.loadUsers();
   }
 
@@ -65,10 +52,6 @@ class App extends Component {
       .catch(err => console.log(err));
   };
 
-
-  //handleCreateGroup = props => {
-  //firebase.database().ref();
-  // }
   saveUsers = (data) => {
     API.saveUser(data)
       .then(res =>
@@ -133,7 +116,7 @@ class App extends Component {
             {/* Join group box */}
             <div className="text-box">
               <p>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
+                <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
                   Join a Group
               </button>
               </p>
@@ -148,10 +131,7 @@ class App extends Component {
                 </div>
               </div>
             </div>
-
-            <br />
-            <br />
-        
+                    
             <ChatBox
               name={this.state.name}
               groupName={"ACL"}

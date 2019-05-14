@@ -31,6 +31,9 @@ db.Users
   .remove({})
   .then(() => db.Users.collection.insertMany(usersSeed))
   .then(data => {
+    
+    // and now I'm going to add in all my groups
+    // and associate my users with them
     console.log(data.result.n + " user inserted!");
     process.exit(0);
   })
