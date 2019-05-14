@@ -124,23 +124,11 @@ class App extends Component {
            />
 
             {/* Join group box */}
-            <div className="text-box">
-              <p>
-                <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
-                  Join a Group
-              </button>
-              </p>
-              <div class="collapse" id="collapseExample1">
-                <div class="card card-body">
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Group Name" aria-label="Group Name" aria-describedby="button-addon2" />
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon">Join</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <JoinGroup
+            userName={this.state.name}
+            userID={this.state.id}
+            setGroupName={this.setGroupName}
+            />
                     
             <ChatBox
               name={this.state.name}
