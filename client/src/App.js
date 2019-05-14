@@ -72,6 +72,11 @@ class App extends Component {
     }
   };
 
+  // Update group name function - invoked from CreateGroup.js..
+  setGroupName = ( newGroupName ) => {
+    this.setState({ groupName: newGroupName });
+  }
+
   responseFacebook = (response) => {
     console.log(response);
     this.setState({ name: response.name, id: response.id })
@@ -112,33 +117,31 @@ class App extends Component {
             </div>
 
             {/* Create group box */}
-            <CreateGroup
-              groupName={this.state.groupName}
-              groupMember={this.state.name}
-            />
+           <CreateGroup
+           userName={this.state.name}
+           userID={this.state.id}
+           setGroupName={this.setGroupName}
+           />
 
-            {this.state.groupName.length ? (
-              <List>
-                {this.state.groupName.map(groups => {
-                  return (
-                    <ListItem key={groups._id}>
-                      <a href={"/group/" + groups._id}>
-                        <strong>
-                          {this.state.groupName}
-                        </strong>
-                      </a>
-                    </ListItem>
-                  );
-                })}
-              </List>
-            ) : (
-                <h3>No Results to Display</h3>
-              )}
-            <JoinGroup
-              groupName={this.state.groupName}
-              groupMember={this.state.name}
-            />
-
+            {/* Join group box */}
+            <div className="text-box">
+              <p>
+                <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
+                  Join a Group
+              </button>
+              </p>
+              <div class="collapse" id="collapseExample1">
+                <div class="card card-body">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Group Name" aria-label="Group Name" aria-describedby="button-addon2" />
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon">Join</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                    
             <ChatBox
               name={this.state.name}
               groupName={this.state.groupName}

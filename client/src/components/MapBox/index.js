@@ -44,7 +44,7 @@ class MapBox extends Component {
             console.log(snapshot.val());
             const newPinsObject = snapshot.val();
 
-            // Now loop through the NEW pins objects and create convert to array of pins locations..
+            // Now loop through the NEW pins objects and convert to array of pins locations..
             const newPinsArray = Object.keys( newPinsObject ).map(( elem ) => {
                 return {
                     groupID: newPinsObject[ elem ].groupID,
@@ -106,24 +106,6 @@ class MapBox extends Component {
                 console.log("no navigation ability");
             }
         });
-    }
-
-    populateMarkers = () => {
-        const markersArr = this.state.pinsArray.map(( elem, index ) => {
-            console.log( "Marker: " + elem.name + ":" + elem.x + ":" + elem.y );
-            return <Marker key={index} lat={elem.x} lng={elem.y} title={elem.name} label={elem.name}/>
-        });
-        console.log(markersArr);
-        return markersArr;
-    }
-
-    populateMarkers = () => {
-        const markersArr = this.state.pinsArray.map(( elem, index ) => {
-            console.log( "Marker: " + elem.name + ":" + elem.x + ":" + elem.y );
-            return <Marker key={index} lat={elem.x} lng={elem.y} title={elem.name} label={elem.name}/>
-        });
-        console.log(markersArr);
-        return markersArr;
     }
 
     render() {
