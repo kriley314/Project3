@@ -45,9 +45,13 @@ class CreateGroup extends Component {
     if (this.state.groupName) {
       API.saveGroup({
         groupName: this.state.groupName,
-        groupMember: this.state.name
+        memberIds: [this.state.userID]
       })
-        .then(res => this.loadGroups())
+        .then(res => {
+          // Callback into the parent to set the group name for all to see for this client.
+          this.props.setGroupName( this.state.groupName );
+          this.loadGroups();
+        })
         .catch(err => console.log(err));
     }
 

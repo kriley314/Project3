@@ -68,6 +68,11 @@ class App extends Component {
     }
   };
 
+  // Update group name function - invoked from CreateGroup.js..
+  setGroupName = ( newGroupName ) => {
+    this.setState({ groupName: newGroupName });
+  }
+
   responseFacebook = (response) => {
     console.log(response);
     this.setState({ name: response.name, id: response.id })
@@ -109,8 +114,9 @@ class App extends Component {
 
             {/* Create group box */}
            <CreateGroup
-           groupName={this.state.groupName}
-           groupMember={this.state.name}
+           userName={this.state.name}
+           userID={this.state.id}
+           setGroupName={this.setGroupName}
            />
 
             {/* Join group box */}
