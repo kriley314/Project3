@@ -20,8 +20,20 @@ class MapBox extends Component {
         this.state = {
             pinsArray: [],
             positionRef: null,
-            myPosition: thompsonConference
+            myPosition: thompsonConference,
+            intervalId: null
         };
+    }
+
+    componentWillMount() {
+        // Use componentWillMount to setup the timer processing.  Make the call every 60 seconds.
+        const id = setInterval( this.processTimeoutEvent, 60000 );
+        this.setState({ intervalId: id })
+    }
+
+    componentWillUnmount() {
+        // We're done so stop the timer processing.
+        clearInterval( this.state.intervalId );
     }
 
     // This function will set up timer processing to "occasionally" call to get our pin
@@ -32,24 +44,17 @@ class MapBox extends Component {
             console.log(snapshot.val());
             const newPinsObject = snapshot.val();
 
-            // I still think I need to have processing here that will remove the map reference in 
-            // each pin that is in the current pinsArray state member.
-            //            const oldPinsArray = this.props.pinsArray;
-            //            for ( let i = 0; i < oldPinsArray.length; i++ ) {
-            //                oldPinsArray[ i ].
-            //            }
-
             // Now loop through the NEW pins objects and create convert to array of pins locations..
-            const newPinsArray = Object.keys(newPinsObject).map((elem) => {
+            const newPinsArray = Object.keys( newPinsObject ).map(( elem ) => {
                 return {
-                    groupID: newPinsObject[elem].groupID,
-                    name: newPinsObject[elem].name,
-                    x: newPinsObject[elem].x,
-                    y: newPinsObject[elem].y
+                    groupID: newPinsObject[ elem ].groupID,
+                    name: newPinsObject[ elem ].name,
+                    x: newPinsObject[ elem ].x,
+                    y: newPinsObject[ elem ].y
                 };
             });
 
-            console.log(newPinsArray);
+            console.log( newPinsArray );
 
             this.setState({ pinsArray: newPinsArray });
         });
@@ -97,7 +102,7 @@ console.log( "Just got geolocation: " + latitude + ":" + longitude );
                 // Since 'push' is being used, firebase creates a unique ID based on time and entropy that is the parent of the data
                 // In addition to writing data, positionRef's value is equal to the unique ID generated so that it can be referenced later
                 this.state.positionRef.set({ groupID: this.props.gGroupName, name: this.props.gName, x: latitude, y: longitude });
-                console.log("Just updated my position in Firebase..");
+                console.log( "Just updated my position in Firebase: " + latitude + ":" + longitude );
             }
             else {
                 // No navigation ability will notify the user
@@ -106,30 +111,30 @@ console.log( "Just got geolocation: " + latitude + ":" + longitude );
         });
     }
 
-    countdown = () => {
-        console.log("Inside countdown..");
-        var seconds = 60;
-        function tick() {
-            seconds--;
-            if (seconds > 0) {
-                setTimeout(tick, 1000);
-            } else {
-                this.processTimeoutEvent();
-                seconds = 60;
-            }
-        }
+    // countdown = () => {
+    //     console.log("Inside countdown..");
+    //     var seconds = 60;
+    //     function tick() {
+    //         seconds--;
+    //         if (seconds > 0) {
+    //             setTimeout(tick, 1000);
+    //         } else {
+    //             this.processTimeoutEvent();
+    //             seconds = 60;
+    //         }
+    //     }
 
-        tick();
-    }
+    //     tick();
+    // }
 
-    populateMarkers = () => {
-        const markersArr = this.state.pinsArray.map(( elem, index ) => {
-            console.log( "Marker: " + elem.name + ":" + elem.x + ":" + elem.y );
-            return <Marker key={index} lat={elem.x} lng={elem.y} title={elem.name} label={elem.name}/>
-        });
-        console.log(markersArr);
-        return markersArr;
-    }
+    // populateMarkers = () => {
+    //     const markersArr = this.state.pinsArray.map(( elem, index ) => {
+    //         console.log( "Marker: " + elem.name + ":" + elem.x + ":" + elem.y );
+    //         return <Marker key={index} lat={elem.x} lng={elem.y} title={elem.name} label={elem.name}/>
+    //     });
+    //     console.log(markersArr);
+    //     return markersArr;
+    // }
 
 
     render() {
