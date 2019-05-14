@@ -13,6 +13,7 @@ import API from "./utils/API";
 
 import './App.css';
 import CreateGroup from './components/CreateGroup/CreateGroup';
+import { timingSafeEqual } from 'crypto';
 
 require("dotenv").config();
 
@@ -40,14 +41,13 @@ class App extends Component {
   };
 
   componentDidMount() {
-    
     this.loadUsers();
   }
 
   loadUsers = () => {
     API.getUsers()
-      .then(res =>
-        this.setState({ users: res.data, name: "", id: "", }, () => console.log(res.data))
+      .then(res => 
+        this.setState({ users: res.data }, () => console.log("loadUsers Data: ", res.data))
       )
       .catch(err => console.log(err));
   };
@@ -71,6 +71,7 @@ class App extends Component {
 
   responseFacebook = (response) => {
     console.log(response);
+    this.setState({ name: response.name, id: response.id })
     this.saveUsers(response);
   }
 
