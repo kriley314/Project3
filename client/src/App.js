@@ -134,7 +134,7 @@ class App extends Component {
                     
             <ChatBox
               name={this.state.name}
-              groupName={"ACL"}
+              groupName={this.state.groupName}
               messagesArray={this.state.messagesArray}
             />
 
@@ -155,7 +155,7 @@ class App extends Component {
           gZoom={17}
           gOnMarkerClick={this.gOnMarkerClick}
           gName={this.state.name}
-          gGroupName={"Lunch"}
+          gGroupName={this.state.groupName}
           gOnClose={this.onInfoWindowClose}
         />
       </div>
