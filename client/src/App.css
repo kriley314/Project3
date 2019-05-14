@@ -2,6 +2,14 @@
   text-align: center;
 }
 
+/* .card{
+  overflow: scroll;
+} */
+
+/* .text-box{
+  overflow: auto;
+} */
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -48,10 +56,11 @@ width: 50%
 
 #chat-window{
   height: 200px;
-  overflow: auto;
+  /* overflow: auto; */
   background: #f9f9f9;
 }
 
 .messageContainer{
   word-wrap: break-word;
+  overflow: auto;
 }
