@@ -21,7 +21,9 @@ class ChatBox extends Component {
       console.log("Snapshot: ", snapshot.val());
       console.log('messages', this.state.messagesArray)
       const newMessagesArray = this.state.messagesArray;
-      newMessagesArray.push(snapshot.val());
+      console.log("before:" + newMessagesArray.length);
+      newMessagesArray.unshift(snapshot.val());
+      console.log("after:" + newMessagesArray.length);
       this.setState({ messagesArray: newMessagesArray });
     })
 
