@@ -13,7 +13,6 @@ import API from "./utils/API";
 
 import './App.css';
 import CreateGroup from './components/CreateGroup/CreateGroup';
-import { timingSafeEqual } from 'crypto';
 
 require("dotenv").config();
 
