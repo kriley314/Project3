@@ -1,105 +1,113 @@
-import React, { Component} from 'react';
+import React, { Component } from "react";
+import API from "../utils/API";
+import { Link } from "react-router-dom";
 import logo from './logo.png';
 import FacebookLogin from 'react-facebook-login';
 import Sidebar from "react-sidebar";
-
-import MapBox from "../components/MapBox";
-import API from "../utils/API";
+import { GoogleApiWrapper } from 'google-maps-react';
+import MapBox from "./components/MapBox";
 
 require("dotenv").config();
 
-class SignIn extends Component {
-    state = {
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sidebarOpen: true,
+
       name: "",
       id: "",
+      
     };
-    
-    componentDidMount() {
-        this.loadUsers();
-      }
+    this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
+  }
 
-    loadUsers = () => {
-    API.getUsers()
-        .then(res =>
-        this.setState({ users: res.data, name: "", id: "", },() => console.log(res.data))
-        )
-        .catch(err => console.log(err));
-    };
+  onSetSidebarOpen(open) {
+    this.setState({ sidebarOpen: open });
+  };
 
-    deleteUser = id => {
-        API.deleteUser(id)
-          .then(res => this.loadUsers())
-          .catch(err => console.log(err));
-      };
-
-    saveUsers = (data) => {
+  saveUsers = (data) => {
     API.saveUser(data)
-    .then(res => 
+      .then(res =>
         console.log(res))
+  }
+
+  handleOnClick = event => {
+    event.preventDefault();
+    if (this.state.name) {
+      API.saveUser({
+        name: this.state.name,
+      })
+        .then(res => this.loadUsers())
+        .catch(err => console.log(err));
     }
+  };
 
-    handleOnClick = event => {
-        event.preventDefault();
-        if (this.state.name) {
-          API.saveUser({
-            name: this.state.name,
-          })
-            .then(res => this.loadUsers())
-            .catch(err => console.log(err));
-        }
-      };
+  responseFacebook = (response) => {
+    console.log(response);
+    this.setState({ name: response.name, id: response.id })
+    this.saveUsers(response);
+  }
 
-      responseFacebook = (response) => {
-        console.log(response);
-        this.saveUsers(response);
-      }
-    
-      render () {
-        return (
-          <div className="App">
-          <Sidebar
+  render() {
+    return (
+      <div className="App">
+        <Sidebar
           sidebar={<b>
+           
+            <button onClick={() => this.onSetSidebarOpen(false)}>
+            &times;
+        </button>
+            
             <div>
-            <img id="logo-image" src={logo} alt="catchup-app-logo" />
+              <img id="logo-image" src={logo} alt="catchup-app-logo" />
             </div>
 
             <div className="about-text">
-            <p>The CatchUp! app allows you to
-              create, share and join private location based groups.
-            </p>
-            
+              {/* <p>The CatchUp! app allows you to
+                create, share and join private location based groups.
+              </p> */}
             </div>
             <div
               style={{ padding: 40 }}>
               <br />
               <FacebookLogin
                 appId={process.env.REACT_APP_FACEBOOKLOGIN}
+                autoLoad={true}
+                reauthenticate={true}
                 fields="name,email,picture"
                 callback={this.responseFacebook}
               />
               <br />
               <br />
             </div>
-            </b>}
-            open={this.state.sidebarOpen}
-            onSetOpen={this.onSetSidebarOpen}
-            styles={{ sidebar: { background: "white" } }}
-          >
-            <button onClick={() => this.onSetSidebarOpen(true)}>
-              Menu
-          </button>
-          </Sidebar>
-          <MapBox
-          gProps = {this.props.google}
-          gZoom = {17}
-          gOnMarkerClick = {this.gOnMarkerClick}
-          gName = {'Current location'}
-          gOnClose = {this.onInfoWindowClose}
-      />
-      </div>
-        );
-      }
-    }
-    
+            
+          </b>}
+          open={this.state.sidebarOpen}
+          onSetOpen={this.onSetSidebarOpen}
+          styles={{ sidebar: { background: "white" } }}
+        >
+          <button onClick={() => this.onSetSidebarOpen(true)}>
+          <i class="fas fa-bars"></i>
+        </button>
 
-export default SignIn;
+        </Sidebar>
+        <br />
+        <br />
+        <MapBox
+          gProps={this.props.google}
+          gZoom={17}
+          gOnMarkerClick={this.gOnMarkerClick}
+          gName={this.state.name}
+          gGroupName={this.state.groupName}
+          gOnClose={this.onInfoWindowClose}
+        />
+      </div>
+    );
+  }
+}
+
+export default GoogleApiWrapper({
+  apiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+})(App)
+

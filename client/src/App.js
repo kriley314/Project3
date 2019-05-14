@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import logo from './logo.png';
 import FacebookLogin from 'react-facebook-login';
 import Sidebar from "react-sidebar";
-import LeaveGroup from "./components/LeaveGroup";
+// import LeaveGroup from "./components/LeaveGroup";
 // import firebase from "./utils/firebase.js";
 import { GoogleApiWrapper } from 'google-maps-react';
 import MapBox from "./components/MapBox";
+import { List, ListItem } from "./components/List";
+import JoinGroup from './components/JoinGroup/JoinGroup';
+
+
 
 // import ReactDOM from 'react-dom'
 import ChatBox from "./components/ChatBox";
@@ -30,7 +34,7 @@ class App extends Component {
       messagesArray: [],
 
       groupName: "",
-      
+
     };
     this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
   }
@@ -45,7 +49,7 @@ class App extends Component {
 
   loadUsers = () => {
     API.getUsers()
-      .then(res => 
+      .then(res =>
         this.setState({ users: res.data }, () => console.log("loadUsers Data: ", res.data))
       )
       .catch(err => console.log(err));
@@ -84,11 +88,11 @@ class App extends Component {
       <div className="App">
         <Sidebar
           sidebar={<b>
-           
+
             <button onClick={() => this.onSetSidebarOpen(false)}>
-            &times;
+              &times;
         </button>
-            
+
             <div>
               <img id="logo-image" src={logo} alt="catchup-app-logo" />
             </div>
@@ -120,23 +124,11 @@ class App extends Component {
            />
 
             {/* Join group box */}
-            <div className="text-box">
-              <p>
-                <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
-                  Join a Group
-              </button>
-              </p>
-              <div class="collapse" id="collapseExample1">
-                <div class="card card-body">
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Group Name" aria-label="Group Name" aria-describedby="button-addon2" />
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon">Join</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <JoinGroup
+            userName={this.state.name}
+            userID={this.state.id}
+            setGroupName={this.setGroupName}
+            />
                     
             <ChatBox
               name={this.state.name}
@@ -150,8 +142,8 @@ class App extends Component {
           styles={{ sidebar: { background: "white" } }}
         >
           <button onClick={() => this.onSetSidebarOpen(true)}>
-          <i class="fas fa-bars"></i>
-        </button>
+            <i class="fas fa-bars"></i>
+          </button>
 
         </Sidebar>
         <br />
