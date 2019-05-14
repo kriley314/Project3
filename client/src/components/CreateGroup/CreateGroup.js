@@ -45,7 +45,7 @@ class CreateGroup extends Component {
     if (this.state.groupName) {
       API.saveGroup({
         groupName: this.state.groupName,
-        memberIds: [this.state.userID]
+        memberIds: [this.props.userID]
       })
         .then(res => {
           // Callback into the parent to set the group name for all to see for this client.
