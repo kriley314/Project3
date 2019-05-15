@@ -72,7 +72,7 @@ class ChatBox extends Component {
                  {/* // full chat container */}
               <div className="messageContainer" id="textScroll">
                 {this.state.messagesArray.map(messageObj =>
-                  <p>{messageObj.name} said: "{messageObj.message}"</p>
+                  <p>{messageObj.name} : "{messageObj.message}"</p>
                 )}
               </div>
             </div>
