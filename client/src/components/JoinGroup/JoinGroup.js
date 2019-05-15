@@ -60,7 +60,7 @@ class JoinGroup extends Component {
       <div className="text-box">
               <p>
                 <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
-                  Join a Group
+                  Join a Group<i class="fas fa-users" style={{ marginLeft: 10 }}></i>
               </button>
               </p>
               <div class="collapse" id="collapseExample1">

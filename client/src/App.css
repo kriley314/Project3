@@ -18,7 +18,9 @@
 }
 
 #logo-image {
-width: 50%
+width: 50%;
+margin-top: 30px;
+
 }
 
 .about-text {
@@ -54,4 +56,20 @@ width: 50%
 
 .messageContainer{
   word-wrap: break-word;
+}
+
+#close-btn {
+  margin-top: 9px;
+}
+
+#menu-btn {
+  margin-top: 9px;
+ 
+}
+
+#location {
+  object-fit: cover;
+  height: 100px;
+  width: 300px;
+  margin-bottom: 20px;
 }
