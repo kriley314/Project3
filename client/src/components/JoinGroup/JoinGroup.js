@@ -31,8 +31,6 @@ class JoinGroup extends Component {
         console.log(res))
   }
 
-
-
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
@@ -40,33 +38,22 @@ class JoinGroup extends Component {
 
   joinSubmit = event => {
     event.preventDefault();
+    console.log(this.state.groupName)
     if (this.state.groupName) {
-      API.saveGroup({
-        groupName: this.state.groupName,
-        groupMember: this.state.name
+      API.updateGroup({
+        groupName: this.state.groupName
+      },{
+        $push: {
+          memberIds: [this.props.userID]
+
+        }
       })
         .then(res => this.loadGroups())
         .catch(err => console.log(err));
     }
 
-
-    // groupSubmit = event => {
-    //   event.preventDefault();
-    //   firebase.database().ref("/groups").push({
-    //     // groupID: this.props.groupID,
-    //     groupName: this.state.groupName,
-    //     groupMember: this.state.name
-
-    //   })
-
     this.setState({ groupName: "" })
   }
-
-  // deleteGroup = id => {
-  //   firebase.database().ref("/groups").deleteGroup(id)
-  //   .then(res => this.loadGroups())
-  //   .catch(err => console.log(err));
-  //   };
 
   render() {
     return (
@@ -81,7 +68,7 @@ class JoinGroup extends Component {
                   <div class="input-group mb-3">
                     <input type="text" onChange={this.handleInputChange} name="groupName" className="form-control" placeholder="Group Name" aria-label="Group Name" aria-describedby="button-addon2" value={this.state.groupName} />
                     <div class="input-group-append">
-                      <button onClick={this.groupSubmit} className="btn btn-outline-secondary" type="button" id="button-addon">Join</button>
+                      <button onClick={this.joinSubmit} className="btn btn-outline-secondary" type="button" id="button-addon">Join</button>
                     </div>
                   </div>
                 </div>

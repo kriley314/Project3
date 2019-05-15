@@ -25,6 +25,11 @@ export default {
   getGroup: function(id) {
     return axios.get("/api/groups/" + id);
   },
+  // Update group with given id
+  updateGroup: function(groupName) {
+    return axios.put("api/groups/" + groupName);
+  },
+
   // Deletes the user with the given id
   deleteGroup: function(id) {
     return axios.delete("/api/groups/" + id);

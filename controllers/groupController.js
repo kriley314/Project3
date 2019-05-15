@@ -24,7 +24,7 @@ module.exports = {
   },
   update: function(req, res) {
     db.Groups
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .findOneAndUpdate({ groupName: req.params.groupName }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
