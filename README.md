@@ -4,7 +4,7 @@ The CatchUp! app allows users to create, share and join customized map groups.
 
 Users login using their Facebook profile.
 
-When creating a group, the user is automatically added to that an array within that group using a userID that Facebook provides.
+When creating a group, the user is automatically added to an array within that group using a userID that Facebook provides.
 
 Joining a group adds userID to that group as well.
 
