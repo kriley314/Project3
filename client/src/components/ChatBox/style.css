@@ -3,3 +3,12 @@
     padding-right: 50px
 }
 
+.messageContainer{
+    overflow: auto;
+    height:100px;
+}
+
+#textScroll{
+    margin-top:15px;
+}
+
