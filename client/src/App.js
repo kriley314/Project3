@@ -6,15 +6,10 @@ import Sidebar from "react-sidebar";
 // import firebase from "./utils/firebase.js";
 import { GoogleApiWrapper } from 'google-maps-react';
 import MapBox from "./components/MapBox";
-import { List, ListItem } from "./components/List";
 import JoinGroup from './components/JoinGroup/JoinGroup';
-
-
-
-// import ReactDOM from 'react-dom'
 import ChatBox from "./components/ChatBox";
 import API from "./utils/API";
-
+import gif from './index.gif';
 import './App.css';
 import CreateGroup from './components/CreateGroup/CreateGroup';
 
@@ -89,21 +84,21 @@ class App extends Component {
         <Sidebar
           sidebar={<b>
 
-            <button onClick={() => this.onSetSidebarOpen(false)}>
+            <button id="close-btn" onClick={() => this.onSetSidebarOpen(false)}>
               &times;
         </button>
 
             <div>
               <img id="logo-image" src={logo} alt="catchup-app-logo" />
             </div>
-
+  
             <div className="about-text">
               {/* <p>The CatchUp! app allows you to
                 create, share and join private location based groups.
               </p> */}
             </div>
             <div
-              style={{ padding: 40 }}>
+              style={{ padding: 20 }}>
               <br />
               <FacebookLogin
                 appId={process.env.REACT_APP_FACEBOOKLOGIN}
@@ -135,13 +130,16 @@ class App extends Component {
               groupName={this.state.groupName}
               messagesArray={this.state.messagesArray}
             />
+             <div>
+              <img id="location" src={gif} alt="catchup-app-logo" />
+            </div>
 
           </b>}
           open={this.state.sidebarOpen}
           onSetOpen={this.onSetSidebarOpen}
           styles={{ sidebar: { background: "white" } }}
         >
-          <button onClick={() => this.onSetSidebarOpen(true)}>
+          <button id="menu-btn" onClick={() => this.onSetSidebarOpen(true)}>
             <i class="fas fa-bars"></i>
           </button>
 

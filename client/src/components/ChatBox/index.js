@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import firebase from "../../utils/firebase.js";
 import API from "../../utils/API";
 import "./style.css";
@@ -59,20 +59,20 @@ class ChatBox extends Component {
         <div className="text-box">
           <p>
             <button className="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
-              Chat<i className="far fa-comment-alt" style={{ marginLeft: 5 }}></i></button>
+              Chat<i className="far fa-comment-alt" style={{ marginLeft: 10 }}></i></button>
           </p>
           <div className="collapse" id="collapseExample3">
             <div className="card card-body">
               <div className="input-group mb-3">
               <input onChange={this.handleInputChange} name="chatText" type="text" class="form-control" placeholder="Message" aria-label="Message" aria-describedby="button-addon2" value={this.state.chatText} />
                 <div className="input-group-append">
-                <button onClick={this.chatSubmit} class="btn btn-dark" type="button" id="button-addon2">Send</button>
+                <button onClick={this.chatSubmit} className="btn btn-dark" type="button" id="button-addon2">Send</button>
                 </div>
               </div>
                  {/* // full chat container */}
               <div className="messageContainer" id="textScroll">
                 {this.state.messagesArray.map(messageObj =>
-                  <p>{messageObj.name} said: "{messageObj.message}"</p>
+                  <p>{messageObj.name} : "{messageObj.message}"</p>
                 )}
               </div>
             </div>

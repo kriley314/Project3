@@ -53,16 +53,6 @@ class CreateGroup extends Component {
         .catch(err => console.log(err));
     }
 
-
-    // groupSubmit = event => {
-    //   event.preventDefault();
-    //   firebase.database().ref("/groups").push({
-    //     // groupID: this.props.groupID,
-    //     groupName: this.state.groupName,
-    //     groupMember: this.state.name
-
-    //   })
-
     this.setState({ groupName: "" })
   }
 
@@ -77,8 +67,7 @@ class CreateGroup extends Component {
       <div className="text-box">
         <p>
           <button className="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            Create Group
-      </button>
+            Create Group<i class="fas fa-plus-circle" style={{ marginLeft: 10 }}></i></button>
         </p>
         <div className="collapse" id="collapseExample">
           <div className="card card-body">
