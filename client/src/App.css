@@ -45,17 +45,6 @@ margin-top: 30px;
   }
 }
 
-
-#chat{
-  max-width: 500px;
-  margin: -300px 0px 30px 800px;
-  border: 1px solid #ddd;
-  box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
-  border-radius: 2px;
-  float:right;
-
-}
-
 #chat-window{
   height: 200px;
   /* overflow: auto; */
@@ -65,7 +54,7 @@ margin-top: 30px;
 .messageContainer{
   word-wrap: break-word;
   overflow: auto;
-
+  text-align: left;
 }
 
 #close-btn {
@@ -84,3 +73,4 @@ margin-top: 30px;
   margin-bottom: 20px;
 
 }
+
