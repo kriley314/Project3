@@ -1,4 +1,4 @@
-# Project3 - Catchup! app 
+# Catchup! v2 MERN Stack app 
 
 ## Overview
 
