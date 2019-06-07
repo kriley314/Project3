@@ -1,5 +1,9 @@
 # Project3 - Catchup! app 
 
+## Overview
+
+##### Deployed Link: (https://utbc-catch-up.herokuapp.com/)
+
 The CatchUp! app allows users to create, share and join customized map groups.
 
 Users login using their Facebook profile.
@@ -20,6 +24,8 @@ Additional technologies used are Firebase, Bootstrap, Google Maps Platform.
 
 Developers for the CatchUp! app are:
 
-Ken Riley @kriley314
-Brendan Bierman @bbierman7
-Derek Georg @derekgeorg
+| Team Members: |
+| -------------------- |
+| Ken Riley @kriley314 |
+| Brendan Bierman @bbierman7 |
+| Derek Georg @derekgeorg |
