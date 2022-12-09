@@ -4,7 +4,7 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "firebase": "^6.0.1",
     "google-maps-react": "^2.0.2",
     "nodemon": "^1.19.0",
